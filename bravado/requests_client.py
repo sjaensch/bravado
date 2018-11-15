@@ -156,7 +156,8 @@ class RequestsClient(HttpClient):
             misc_options,
         )
 
-        return HttpFuture(
+        http_future_class = request_config.http_future_class if request_config else HttpFuture
+        return http_future_class(
             requests_future,
             RequestsResponseAdapter,
             operation,

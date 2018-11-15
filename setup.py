@@ -47,6 +47,11 @@ setup(
             'bottle',
             'ephemeral_port_reserve',
             'pytest',
-        ]
+        ],
+    },
+    entry_points={
+        'console_scripts': [
+            'bravado=bravado.cli.main:main',
+        ],
     },
 )

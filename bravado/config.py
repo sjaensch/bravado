@@ -64,6 +64,8 @@ class RequestConfig(object):
     use_msgpack = False  # type: bool
     timeout = None  # type: typing.Optional[float]
 
+    http_future_class = None
+
     # Extra options passed in that we don't know about
     additional_properties = {}  # type: typing.Mapping[str, typing.Any]
 
@@ -75,6 +77,10 @@ class RequestConfig(object):
         for key in list(request_options.keys()):
             if hasattr(self, key):
                 setattr(self, key, request_options.pop(key))
+
+        if not self.http_future_class:
+            from bravado.http_future import HttpFuture  # prevent circular import
+            self.http_future_class = HttpFuture
 
         self.additional_properties = request_options
 
